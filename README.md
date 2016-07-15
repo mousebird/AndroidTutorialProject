@@ -13,7 +13,7 @@ app/libs/WhirlyGlobeMaply.aar
 ## Setup
 
 1. Clone the repo and open Android Studio.
-2. Select __Import project (Eclipse ADT, Gradle, etc.).
+2. Select __Import project (Eclipse ADT, Gradle, etc.)__.
 3. Navigate to the root of the repo.
 4. Build and Run in Android Studio
 
