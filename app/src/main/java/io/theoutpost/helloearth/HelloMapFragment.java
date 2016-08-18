@@ -76,11 +76,11 @@ public class HelloMapFragment extends GlobeMapFragment {
 
 
         // setup base layer tiles
-        String cacheDirName = "stamen_watercolor";
-        File cacheDir = new File(getActivity().getCacheDir(), cacheDirName);
-        cacheDir.mkdir();
-        RemoteTileSource remoteTileSource = new RemoteTileSource(new RemoteTileInfo("http://tile.stamen.com/watercolor/", "png", 0, 18));
-        remoteTileSource.setCacheDir(cacheDir);
+//        String cacheDirName = "stamen_watercolor";
+//        File cacheDir = new File(getActivity().getCacheDir(), cacheDirName);
+//        cacheDir.mkdir();
+//        RemoteTileSource remoteTileSource = new RemoteTileSource(new RemoteTileInfo("http://tile.stamen.com/watercolor/", "png", 0, 18));
+//        remoteTileSource.setCacheDir(cacheDir);
         SphericalMercatorCoordSystem coordSystem = new SphericalMercatorCoordSystem();
 
         // globeControl is the controller when using MapDisplayType.Globe
