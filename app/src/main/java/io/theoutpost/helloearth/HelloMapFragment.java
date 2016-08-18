@@ -1,10 +1,15 @@
 package io.theoutpost.helloearth;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Environment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.mousebird.maply.GlobeMapFragment;
+import com.mousebird.maply.MBTiles;
+import com.mousebird.maply.MBTilesImageSource;
 import com.mousebird.maply.QuadImageTileLayer;
 import com.mousebird.maply.RemoteTileInfo;
 import com.mousebird.maply.RemoteTileSource;
@@ -32,6 +37,23 @@ public class HelloMapFragment extends GlobeMapFragment {
 
     @Override
     protected void controlHasStarted() {
+        File storageDir = Environment.getExternalStorageDirectory();
+        File mbtilesDir = new File(storageDir, "mbtiles");
+        File mbtilesFile = new File(mbtilesDir, "geography-class_medres.mbtiles");
+        if (!mbtilesFile.exists()) {
+            new AlertDialog.Builder(getActivity())
+                    .setTitle("Missing MBTiles")
+                    .setMessage("Could not find MBTiles file.")
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            // do nothing
+                        }
+                    }).show();
+        }
+        MBTiles mbtiles = new MBTiles(mbtilesFile);
+        MBTilesImageSource localTileSource = new MBTilesImageSource(mbtiles);
+
+
         // setup base layer tiles
         String cacheDirName = "stamen_watercolor";
         File cacheDir = new File(getActivity().getCacheDir(), cacheDirName);
@@ -42,7 +64,7 @@ public class HelloMapFragment extends GlobeMapFragment {
 
         // globeControl is the controller when using MapDisplayType.Globe
         // mapControl is the controller when using MapDisplayType.Map
-        QuadImageTileLayer baseLayer = new QuadImageTileLayer(mapControl, coordSystem, remoteTileSource);
+        QuadImageTileLayer baseLayer = new QuadImageTileLayer(mapControl, coordSystem, localTileSource);
         baseLayer.setImageDepth(1);
         baseLayer.setSingleLevelLoading(false);
         baseLayer.setUseTargetZoomLevel(false);
