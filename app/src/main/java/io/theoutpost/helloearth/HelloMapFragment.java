@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
@@ -96,6 +97,12 @@ public class HelloMapFragment extends GlobeMapFragment {
         mapControl.addLayer(baseLayer);
         mapControl.animatePositionGeo(-3.6704803, 40.5023056, 5, 1.0);
         mapControl.setAllowRotateGesture(false);
+
+        // Add GeoJSON
+        final String url = "https://s3.amazonaws.com/whirlyglobedocs/tutorialsupport/RUS.geojson";
+        GeoJsonHttpTask task = new GeoJsonHttpTask(mapControl);
+        task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, url);
+
     }
 
 }
