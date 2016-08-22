@@ -4,6 +4,8 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
@@ -12,15 +14,21 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.mousebird.maply.ComponentObject;
 import com.mousebird.maply.GlobeMapFragment;
 import com.mousebird.maply.MBTiles;
 import com.mousebird.maply.MBTilesImageSource;
+import com.mousebird.maply.MaplyBaseController;
+import com.mousebird.maply.MarkerInfo;
+import com.mousebird.maply.Point2d;
 import com.mousebird.maply.QuadImageTileLayer;
-import com.mousebird.maply.RemoteTileInfo;
-import com.mousebird.maply.RemoteTileSource;
+import com.mousebird.maply.ScreenMarker;
 import com.mousebird.maply.SphericalMercatorCoordSystem;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class HelloMapFragment extends GlobeMapFragment {
@@ -103,6 +111,62 @@ public class HelloMapFragment extends GlobeMapFragment {
         GeoJsonHttpTask task = new GeoJsonHttpTask(mapControl);
         task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, url);
 
+        // Insert Markers
+        insertMarkers();
+    }
+
+    /**
+     * Our markers are the top 5 largest cities in Russia.
+     * https://en.wikipedia.org/wiki/List_of_cities_and_towns_in_Russia_by_population
+     */
+    private void insertMarkers() {
+        List<ScreenMarker> markers = new ArrayList<>();
+
+        MarkerInfo markerInfo = new MarkerInfo();
+        Bitmap icon = BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.ic_city);
+        Point2d markerSize = new Point2d(144, 144);
+
+        // Moskow - Москва
+        ScreenMarker moskow = new ScreenMarker();
+        moskow.loc = Point2d.FromDegrees(37.616667, 55.75); // Longitude, Latitude
+        moskow.image = icon;
+        moskow.size = markerSize;
+        markers.add(moskow);
+
+        // 	Saint Petersburg - Санкт-Петербург
+        ScreenMarker stPetersburg = new ScreenMarker();
+        stPetersburg.loc = Point2d.FromDegrees(30.3, 59.95); // Longitude, Latitude
+        stPetersburg.image = icon;
+        stPetersburg.size = markerSize;
+        markers.add(stPetersburg);
+
+        // Novosibirsk - Новосибирск
+        ScreenMarker novosibirsk = new ScreenMarker();
+        novosibirsk.loc = Point2d.FromDegrees(82.95, 55.05); // Longitude, Latitude
+        novosibirsk.image = icon;
+        novosibirsk.size = markerSize;
+        markers.add(novosibirsk);
+
+        // Yekaterinburg - Екатеринбург
+        ScreenMarker yekaterinburg = new ScreenMarker();
+        yekaterinburg.loc = Point2d.FromDegrees(60.583333, 56.833333); // Longitude, Latitude
+        yekaterinburg.image = icon;
+        yekaterinburg.size = markerSize;
+        markers.add(yekaterinburg);
+
+        // Nizhny Novgorod - Нижний Новгород
+        ScreenMarker nizhnyNovgorod = new ScreenMarker();
+        nizhnyNovgorod.loc = Point2d.FromDegrees(44.0075, 56.326944); // Longitude, Latitude
+        nizhnyNovgorod.image = icon;
+        nizhnyNovgorod.size = markerSize;
+        markers.add(nizhnyNovgorod);
+
+        // Add your markers to the map controller.
+        ComponentObject markersComponentObject = mapControl.addScreenMarkers(markers, markerInfo, MaplyBaseController.ThreadMode.ThreadAny);
+
+        // ComponentObject is your handle to the marker in the map controller.
+        // You can use this to enable, disable, and remove your marker from the map.
+//        mapControl.removeObject(markersComponentObject, MaplyBaseController.ThreadMode.ThreadAny);
     }
 
 }
