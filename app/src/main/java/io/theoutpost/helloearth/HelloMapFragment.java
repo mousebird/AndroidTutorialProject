@@ -159,6 +159,7 @@ public class HelloMapFragment extends GlobeMapFragment {
         nizhnyNovgorod.loc = Point2d.FromDegrees(44.0075, 56.326944); // Longitude, Latitude
         nizhnyNovgorod.image = icon;
         nizhnyNovgorod.size = markerSize;
+        nizhnyNovgorod.rotation = Math.PI;
         markers.add(nizhnyNovgorod);
 
         // Add your markers to the map controller.
