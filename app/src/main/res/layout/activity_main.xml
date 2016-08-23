@@ -5,19 +5,19 @@
     android:layout_height="match_parent"
     tools:context="io.theoutpost.helloearth.MainActivity">
 
-    <!--<fragment-->
-        <!--android:layout_width="fill_parent"-->
-        <!--android:layout_height="fill_parent"-->
-        <!--android:name="io.theoutpost.helloearth.HelloGlobeFragment"-->
-        <!--android:id="@+id/fragment"-->
-        <!--android:layout_centerVertical="true"-->
-        <!--android:layout_centerHorizontal="true" />-->
-
     <fragment
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:name="io.theoutpost.helloearth.HelloMapFragment"
+        android:name="io.theoutpost.helloearth.HelloGlobeFragment"
         android:id="@+id/fragment"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
+
+    <!--<fragment-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="fill_parent"-->
+        <!--android:name="io.theoutpost.helloearth.HelloMapFragment"-->
+        <!--android:id="@+id/fragment"-->
+        <!--android:layout_centerVertical="true"-->
+        <!--android:layout_centerHorizontal="true" />-->
 </RelativeLayout>
