@@ -6,6 +6,8 @@ import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
@@ -17,12 +19,14 @@ import android.view.ViewGroup;
 
 import com.mousebird.maply.ComponentObject;
 import com.mousebird.maply.GlobeMapFragment;
+import com.mousebird.maply.LabelInfo;
 import com.mousebird.maply.MBTiles;
 import com.mousebird.maply.MBTilesImageSource;
 import com.mousebird.maply.MaplyBaseController;
 import com.mousebird.maply.MarkerInfo;
 import com.mousebird.maply.Point2d;
 import com.mousebird.maply.QuadImageTileLayer;
+import com.mousebird.maply.ScreenLabel;
 import com.mousebird.maply.ScreenMarker;
 import com.mousebird.maply.SphericalMercatorCoordSystem;
 
@@ -112,7 +116,10 @@ public class HelloMapFragment extends GlobeMapFragment {
         task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, url);
 
         // Insert Markers
-        insertMarkers();
+//        insertMarkers();
+
+        // Insert Labels
+        insertLabels();
     }
 
     /**
@@ -170,4 +177,56 @@ public class HelloMapFragment extends GlobeMapFragment {
 //        mapControl.removeObject(markersComponentObject, MaplyBaseController.ThreadMode.ThreadAny);
     }
 
+    private void insertLabels() {
+        List<ScreenLabel> labels = new ArrayList<>();
+
+        LabelInfo labelInfo = new LabelInfo();
+        labelInfo.setFontSize(30f);
+        labelInfo.setTextColor(Color.BLACK);
+        labelInfo.setTypeface(Typeface.SERIF);
+        labelInfo.setLayoutPlacement(LabelInfo.LayoutRight);
+        labelInfo.setOutlineColor(Color.WHITE);
+        labelInfo.setOutlineSize(1.f);
+
+        float layoutImportance = 1.f;
+
+        // Moskow - Москва
+        ScreenLabel moskow = new ScreenLabel();
+        moskow.loc = Point2d.FromDegrees(37.616667, 55.75); // Longitude, Latitude
+        moskow.text = "Москва";
+        moskow.layoutImportance = layoutImportance++;
+        labels.add(moskow);
+
+        // 	Saint Petersburg - Санкт-Петербург
+        ScreenLabel stPetersburg = new ScreenLabel();
+        stPetersburg.loc = Point2d.FromDegrees(30.3, 59.95); // Longitude, Latitude
+        stPetersburg.text = "Санкт-Петербург";
+        stPetersburg.layoutImportance = layoutImportance++;
+        labels.add(stPetersburg);
+
+        // Novosibirsk - Новосибирск
+        ScreenLabel novosibirsk = new ScreenLabel();
+        novosibirsk.loc = Point2d.FromDegrees(82.95, 55.05); // Longitude, Latitude
+        novosibirsk.text = "Новосибирск";
+        novosibirsk.layoutImportance = layoutImportance++;
+        labels.add(novosibirsk);
+
+        // Yekaterinburg - Екатеринбург
+        ScreenLabel yekaterinburg = new ScreenLabel();
+        yekaterinburg.loc = Point2d.FromDegrees(60.583333, 56.833333); // Longitude, Latitude
+        yekaterinburg.text = "Екатеринбург";
+        yekaterinburg.layoutImportance = layoutImportance++;
+        labels.add(yekaterinburg);
+
+        // Nizhny Novgorod - Нижний Новгород
+        ScreenLabel nizhnyNovgorod = new ScreenLabel();
+        nizhnyNovgorod.loc = Point2d.FromDegrees(44.0075, 56.326944); // Longitude, Latitude
+        nizhnyNovgorod.text = "Нижний Новгород";
+        nizhnyNovgorod.layoutImportance = layoutImportance++;
+        nizhnyNovgorod.rotation = Math.PI / 8;
+        labels.add(nizhnyNovgorod);
+
+        // Add your markers to the map controller.
+        ComponentObject labelsComponentObject = mapControl.addScreenLabels(labels, labelInfo, MaplyBaseController.ThreadMode.ThreadAny);
+    }
 }
