@@ -22,12 +22,14 @@ import com.mousebird.maply.GlobeMapFragment;
 import com.mousebird.maply.LabelInfo;
 import com.mousebird.maply.MBTiles;
 import com.mousebird.maply.MBTilesImageSource;
+import com.mousebird.maply.MapController;
 import com.mousebird.maply.MaplyBaseController;
 import com.mousebird.maply.MarkerInfo;
 import com.mousebird.maply.Point2d;
 import com.mousebird.maply.QuadImageTileLayer;
 import com.mousebird.maply.ScreenLabel;
 import com.mousebird.maply.ScreenMarker;
+import com.mousebird.maply.SelectedObject;
 import com.mousebird.maply.SphericalMercatorCoordSystem;
 
 import java.io.File;
@@ -195,6 +197,7 @@ public class HelloMapFragment extends GlobeMapFragment {
         moskow.loc = Point2d.FromDegrees(37.616667, 55.75); // Longitude, Latitude
         moskow.text = "Москва";
         moskow.layoutImportance = layoutImportance++;
+        moskow.selectable = true;
         labels.add(moskow);
 
         // 	Saint Petersburg - Санкт-Петербург
@@ -202,6 +205,7 @@ public class HelloMapFragment extends GlobeMapFragment {
         stPetersburg.loc = Point2d.FromDegrees(30.3, 59.95); // Longitude, Latitude
         stPetersburg.text = "Санкт-Петербург";
         stPetersburg.layoutImportance = layoutImportance++;
+        moskow.selectable = true;
         labels.add(stPetersburg);
 
         // Novosibirsk - Новосибирск
@@ -209,6 +213,7 @@ public class HelloMapFragment extends GlobeMapFragment {
         novosibirsk.loc = Point2d.FromDegrees(82.95, 55.05); // Longitude, Latitude
         novosibirsk.text = "Новосибирск";
         novosibirsk.layoutImportance = layoutImportance++;
+        moskow.selectable = true;
         labels.add(novosibirsk);
 
         // Yekaterinburg - Екатеринбург
@@ -216,6 +221,7 @@ public class HelloMapFragment extends GlobeMapFragment {
         yekaterinburg.loc = Point2d.FromDegrees(60.583333, 56.833333); // Longitude, Latitude
         yekaterinburg.text = "Екатеринбург";
         yekaterinburg.layoutImportance = layoutImportance++;
+        moskow.selectable = true;
         labels.add(yekaterinburg);
 
         // Nizhny Novgorod - Нижний Новгород
@@ -224,9 +230,16 @@ public class HelloMapFragment extends GlobeMapFragment {
         nizhnyNovgorod.text = "Нижний Новгород";
         nizhnyNovgorod.layoutImportance = layoutImportance++;
         nizhnyNovgorod.rotation = Math.PI / 8;
+        moskow.selectable = true;
         labels.add(nizhnyNovgorod);
 
         // Add your markers to the map controller.
         ComponentObject labelsComponentObject = mapControl.addScreenLabels(labels, labelInfo, MaplyBaseController.ThreadMode.ThreadAny);
+    }
+
+    @Override
+    public void userDidSelect(MapController mapControl, SelectedObject[] selObjs, Point2d loc, Point2d screenLoc) {
+
+        int len = selObjs.length;
     }
 }

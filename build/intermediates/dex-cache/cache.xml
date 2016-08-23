@@ -19,14 +19,14 @@
         jar="/Users/njh/code/AndroidTutorialProject/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
         jumboMode="true"
         revision="23.0.3"
-        sha1="3dc21aff5b69f48a945bb7621d26f2b8b687c695">
+        sha1="5ab6b7291dfc198fe770c8d795b0cebf813e04b4">
         <dex dex="/Users/njh/code/AndroidTutorialProject/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_3f053c9f05eed04081b221db014dc5f6ef4ab8eb/classes.dex" />
     </item>
     <item
         jar="/Users/njh/code/AndroidTutorialProject/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
         jumboMode="true"
         revision="23.0.3"
-        sha1="114119fd23105af40b5802978d0b26d5ec89fe08">
+        sha1="c56d64978edb6e89e456dd874249db7e798a2bf6">
         <dex dex="/Users/njh/code/AndroidTutorialProject/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_7c3d215889d5fed36c6ee26543e30ca74b9ce8da/classes.dex" />
     </item>
     <item
