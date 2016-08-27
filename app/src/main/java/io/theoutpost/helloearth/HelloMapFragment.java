@@ -126,7 +126,7 @@ public class HelloMapFragment extends GlobeMapFragment {
 //        insertLabels();
     }
 
-    private class MarkerProperties {
+    public class MarkerProperties {
         public String city;
         public String subject;
     }
@@ -158,54 +158,53 @@ public class HelloMapFragment extends GlobeMapFragment {
         moskow.userObject = properties;
         markers.add(moskow);
 
-//        // 	Saint Petersburg - Санкт-Петербург
-//        properties = new MarkerProperties();
-//        properties.city = "Saint Petersburg";
-//        properties.subject = "Saint Petersburg";
-//        ScreenMarker stPetersburg = new ScreenMarker();
-//        stPetersburg.loc = Point2d.FromDegrees(30.3, 59.95); // Longitude, Latitude
-//        stPetersburg.image = icon;
-//        stPetersburg.size = markerSize;
-//        stPetersburg.selectable = true;
-//        stPetersburg.userObject = properties;
-//        markers.add(stPetersburg);
-//
-//        // Novosibirsk - Новосибирск
-//        properties = new MarkerProperties();
-//        properties.city = "Novosibirsk";
-//        properties.subject = "Novosibirsk Oblast";
-//        ScreenMarker novosibirsk = new ScreenMarker();
-//        novosibirsk.loc = Point2d.FromDegrees(82.95, 55.05); // Longitude, Latitude
-//        novosibirsk.image = icon;
-//        novosibirsk.size = markerSize;
-//        novosibirsk.selectable = true;
-//        novosibirsk.userObject = properties;
-//        markers.add(novosibirsk);
-//
-//        // Yekaterinburg - Екатеринбург
-//        properties = new MarkerProperties();
-//        properties.city = "Yekaterinburg";
-//        properties.subject = "Sverdlovsk Oblast";
-//        ScreenMarker yekaterinburg = new ScreenMarker();
-//        yekaterinburg.loc = Point2d.FromDegrees(60.583333, 56.833333); // Longitude, Latitude
-//        yekaterinburg.image = icon;
-//        yekaterinburg.size = markerSize;
-//        yekaterinburg.selectable = true;
-//        yekaterinburg.userObject = properties;
-//        markers.add(yekaterinburg);
-//
-//        // Nizhny Novgorod - Нижний Новгород
-//        properties = new MarkerProperties();
-//        properties.city = "Nizhny Novgorod";
-//        properties.subject = "Nizhny Novgorod Oblast";
-//        ScreenMarker nizhnyNovgorod = new ScreenMarker();
-//        nizhnyNovgorod.loc = Point2d.FromDegrees(44.0075, 56.326944); // Longitude, Latitude
-//        nizhnyNovgorod.image = icon;
-//        nizhnyNovgorod.size = markerSize;
-//        nizhnyNovgorod.rotation = Math.PI;
-//        nizhnyNovgorod.selectable = true;
-//        nizhnyNovgorod.userObject = properties;
-//        markers.add(nizhnyNovgorod);
+        // 	Saint Petersburg - Санкт-Петербург
+        properties = new MarkerProperties();
+        properties.city = "Saint Petersburg";
+        properties.subject = "Saint Petersburg";
+        ScreenMarker stPetersburg = new ScreenMarker();
+        stPetersburg.loc = Point2d.FromDegrees(30.3, 59.95); // Longitude, Latitude
+        stPetersburg.image = icon;
+        stPetersburg.size = markerSize;
+        stPetersburg.selectable = true;
+        stPetersburg.userObject = properties;
+        markers.add(stPetersburg);
+
+        // Novosibirsk - Новосибирск
+        properties = new MarkerProperties();
+        properties.city = "Novosibirsk";
+        properties.subject = "Novosibirsk Oblast";
+        ScreenMarker novosibirsk = new ScreenMarker();
+        novosibirsk.loc = Point2d.FromDegrees(82.95, 55.05); // Longitude, Latitude
+        novosibirsk.image = icon;
+        novosibirsk.size = markerSize;
+        novosibirsk.userObject = properties;
+        markers.add(novosibirsk);
+
+        // Yekaterinburg - Екатеринбург
+        properties = new MarkerProperties();
+        properties.city = "Yekaterinburg";
+        properties.subject = "Sverdlovsk Oblast";
+        ScreenMarker yekaterinburg = new ScreenMarker();
+        yekaterinburg.loc = Point2d.FromDegrees(60.583333, 56.833333); // Longitude, Latitude
+        yekaterinburg.image = icon;
+        yekaterinburg.size = markerSize;
+        yekaterinburg.selectable = true;
+        yekaterinburg.userObject = properties;
+        markers.add(yekaterinburg);
+
+        // Nizhny Novgorod - Нижний Новгород
+        properties = new MarkerProperties();
+        properties.city = "Nizhny Novgorod";
+        properties.subject = "Nizhny Novgorod Oblast";
+        ScreenMarker nizhnyNovgorod = new ScreenMarker();
+        nizhnyNovgorod.loc = Point2d.FromDegrees(44.0075, 56.326944); // Longitude, Latitude
+        nizhnyNovgorod.image = icon;
+        nizhnyNovgorod.size = markerSize;
+        nizhnyNovgorod.rotation = Math.PI;
+        nizhnyNovgorod.selectable = true;
+        nizhnyNovgorod.userObject = properties;
+        markers.add(nizhnyNovgorod);
 
         // Add your markers to the map controller.
         ComponentObject markersComponentObject = mapControl.addScreenMarkers(markers, markerInfo, MaplyBaseController.ThreadMode.ThreadAny);
