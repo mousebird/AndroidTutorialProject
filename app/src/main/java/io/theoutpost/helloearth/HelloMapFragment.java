@@ -16,7 +16,9 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.mousebird.maply.AttrDictionary;
 import com.mousebird.maply.ComponentObject;
 import com.mousebird.maply.GlobeMapFragment;
 import com.mousebird.maply.LabelInfo;
@@ -33,6 +35,7 @@ import com.mousebird.maply.ScreenLabel;
 import com.mousebird.maply.ScreenMarker;
 import com.mousebird.maply.SelectedObject;
 import com.mousebird.maply.SphericalMercatorCoordSystem;
+import com.mousebird.maply.VectorObject;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -114,6 +117,10 @@ public class HelloMapFragment extends GlobeMapFragment {
         mapControl.animatePositionGeo(-3.6704803, 40.5023056, 5, 1.0);
         mapControl.setAllowRotateGesture(false);
 
+        // Set controller to be gesture delegate.
+        // Needed to allow selection.
+        mapControl.gestureDelegate = this;
+
         // Add GeoJSON
         final String url = "https://s3.amazonaws.com/whirlyglobedocs/tutorialsupport/RUS.geojson";
         GeoJsonHttpTask task = new GeoJsonHttpTask(mapControl);
@@ -136,10 +143,6 @@ public class HelloMapFragment extends GlobeMapFragment {
      * https://en.wikipedia.org/wiki/List_of_cities_and_towns_in_Russia_by_population
      */
     private void insertMarkers() {
-        // Set controller to be gesture delegate.
-        // Needed to allow selection.
-        mapControl.gestureDelegate = this;
-
         List<ScreenMarker> markers = new ArrayList<>();
 
         MarkerInfo markerInfo = new MarkerInfo();
@@ -269,7 +272,23 @@ public class HelloMapFragment extends GlobeMapFragment {
 
     @Override
     public void userDidSelect(MapController mapControl, SelectedObject[] selObjs, Point2d loc, Point2d screenLoc) {
+        String msg = "Selected feature count: " + selObjs.length;
+        for (SelectedObject obj : selObjs) {
+            // GeoJSON
+            if (obj.selObj instanceof VectorObject) {
+                VectorObject vectorObject = (VectorObject) obj.selObj;
+                AttrDictionary attributes = vectorObject.getAttributes();
+                String adminName = attributes.getString("ADMIN");
+                msg += "\nVector Object: " + adminName;
+            }
+            // Screen Marker
+            else if (obj.selObj instanceof ScreenMarker) {
+                ScreenMarker screenMarker = (ScreenMarker) obj.selObj;
+                MarkerProperties properties = (MarkerProperties) screenMarker.userObject;
+                msg += "\nScreen Marker: " + properties.city + ", " + properties.subject;
+            }
+        }
 
-        int len = selObjs.length;
+        Toast.makeText(getActivity(), msg, Toast.LENGTH_LONG).show();
     }
 }

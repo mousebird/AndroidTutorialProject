@@ -52,6 +52,7 @@ public class GeoJsonHttpTask extends AsyncTask<String, Void, String> {
         vectorInfo.setColor(Color.RED);
         vectorInfo.setLineWidth(4.f);
         VectorObject object = new VectorObject();
+        object.selectable = true;
         if (object.fromGeoJSON(json)) {
             controller.addVector(object, vectorInfo, MaplyBaseController.ThreadMode.ThreadAny);
         }
