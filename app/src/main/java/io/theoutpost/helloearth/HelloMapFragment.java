@@ -45,7 +45,8 @@ import java.util.List;
 
 public class HelloMapFragment extends GlobeMapFragment {
 
-    ComponentObject selectedComponentObject;
+    private ComponentObject selectedComponentObject;
+    private ComponentObject selectedMarkerComponent;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -290,6 +291,7 @@ public class HelloMapFragment extends GlobeMapFragment {
                 ScreenMarker screenMarker = (ScreenMarker) obj.selObj;
                 MarkerProperties properties = (MarkerProperties) screenMarker.userObject;
                 msg += "\nScreen Marker: " + properties.city + ", " + properties.subject;
+                drawScreenMarkerAsSelected(screenMarker);
             }
         }
 
@@ -305,5 +307,19 @@ public class HelloMapFragment extends GlobeMapFragment {
         vectorInfo.setLineWidth(10.f);
         vectorInfo.setDrawPriority(Integer.MAX_VALUE); // Make sure it draws on top of unselected vector
         selectedComponentObject = mapControl.addVector(vectorObject, vectorInfo, MaplyBaseController.ThreadMode.ThreadAny);
+    }
+
+    public void drawScreenMarkerAsSelected(ScreenMarker screenMarker) {
+        if (selectedMarkerComponent != null) {
+            mapControl.removeObject(selectedMarkerComponent, MaplyBaseController.ThreadMode.ThreadAny);
+        }
+        MarkerInfo markerInfo = new MarkerInfo();
+        markerInfo.setDrawPriority(Integer.MAX_VALUE);
+        Bitmap icon = BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.maply_ic_launcher);
+        Point2d markerSize = new Point2d(200, 200);
+        screenMarker.image = icon;
+        screenMarker.size = markerSize;
+        screenMarker.selectable = true;
+        selectedMarkerComponent= mapControl.addScreenMarker(screenMarker, markerInfo, MaplyBaseController.ThreadMode.ThreadAny);
     }
 }
