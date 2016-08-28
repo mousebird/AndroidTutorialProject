@@ -35,6 +35,7 @@ import com.mousebird.maply.ScreenLabel;
 import com.mousebird.maply.ScreenMarker;
 import com.mousebird.maply.SelectedObject;
 import com.mousebird.maply.SphericalMercatorCoordSystem;
+import com.mousebird.maply.VectorInfo;
 import com.mousebird.maply.VectorObject;
 
 import java.io.File;
@@ -43,6 +44,8 @@ import java.util.List;
 
 
 public class HelloMapFragment extends GlobeMapFragment {
+
+    ComponentObject selectedComponentObject;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -280,6 +283,7 @@ public class HelloMapFragment extends GlobeMapFragment {
                 AttrDictionary attributes = vectorObject.getAttributes();
                 String adminName = attributes.getString("ADMIN");
                 msg += "\nVector Object: " + adminName;
+                drawVectorObjectAsSelected(vectorObject);
             }
             // Screen Marker
             else if (obj.selObj instanceof ScreenMarker) {
@@ -290,5 +294,16 @@ public class HelloMapFragment extends GlobeMapFragment {
         }
 
         Toast.makeText(getActivity(), msg, Toast.LENGTH_LONG).show();
+    }
+
+    public void drawVectorObjectAsSelected(VectorObject vectorObject) {
+        if (selectedComponentObject != null) {
+            mapControl.removeObject(selectedComponentObject, MaplyBaseController.ThreadMode.ThreadAny);
+        }
+        VectorInfo vectorInfo = new VectorInfo();
+        vectorInfo.setColor(Color.argb(255,255,140,0)); // Gold
+        vectorInfo.setLineWidth(10.f);
+        vectorInfo.setDrawPriority(Integer.MAX_VALUE); // Make sure it draws on top of unselected vector
+        selectedComponentObject = mapControl.addVector(vectorObject, vectorInfo, MaplyBaseController.ThreadMode.ThreadAny);
     }
 }
